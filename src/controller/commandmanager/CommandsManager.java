@@ -1,11 +1,12 @@
 package controller.commandmanager;
 
 import controller.commandsstrategy.CommandStrategyInterface;
-import controller.commandsstrategy.colortransformation.ColorCommandStrategy;
-import controller.commandsstrategy.filter.FilterCommandStrategy;
-import controller.commandsstrategy.greyscale.GreyscaleCommandStrategy;
+import controller.commandsstrategy.analysis.AnalysisCommandStrategy;
 import controller.commandsstrategy.io.LoadCommandStrategy;
 import controller.commandsstrategy.io.SaveCommandStrategy;
+import controller.commandsstrategy.operations.colortransformation.ColorCommandStrategy;
+import controller.commandsstrategy.operations.filter.FilterCommandStrategy;
+import controller.commandsstrategy.operations.greyscale.GreyscaleCommandStrategy;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,6 +52,8 @@ public class CommandsManager implements CommandsManagerInterface {
     commandsMap.put("FILTER", new FilterCommandStrategy());
     // COLOR TRANSFORMATIONS --------------------------------------
     commandsMap.put("COLOR", new ColorCommandStrategy());
+    // ANALYSIS ---------------------------------------------------
+    commandsMap.put("ANALYSIS", new AnalysisCommandStrategy());
   }
 
   /**
@@ -87,6 +90,7 @@ public class CommandsManager implements CommandsManagerInterface {
     stringBuilder.append("color <operation> <image-id> <new-image-id>\n");
     stringBuilder.append("      <operations> = greyscale\n");
     stringBuilder.append("                     sepia\n");
+    stringBuilder.append("analysis histogram <image-id> <new-histogram-id>\n");
     stringBuilder.append("exit\n");
     stringBuilder.append("list-all-images\n");
     stringBuilder.append("list-all-commands\n");

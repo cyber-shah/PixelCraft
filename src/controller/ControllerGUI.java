@@ -112,10 +112,11 @@ public class ControllerGUI implements ControllerGUIInterface {
      */
     if (event.getHistogram()) {
 
-      String[] histogramCommand = new String[3];
-      histogramCommand[0] = "histogram";
-      histogramCommand[1] = event.getDestID();
-      histogramCommand[2] = UUID.randomUUID().toString();
+      String[] histogramCommand = new String[4];
+      histogramCommand[0] = "analysis";
+      histogramCommand[1] = "histogram";
+      histogramCommand[2] = event.getDestID();
+      histogramCommand[3] = UUID.randomUUID().toString();
       try {
         // get the command strategy object from the commands manager
         CommandStrategyInterface commandStrategyObject =

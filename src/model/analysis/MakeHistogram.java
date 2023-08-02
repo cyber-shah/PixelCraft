@@ -8,7 +8,7 @@ import model.image.CustomImageState;
  * It implements the OperationInterface.
  */
 // TODO : implement the AnalysisInterface.
-public class MakeHistogram {
+public class MakeHistogram implements AnalysisInterface {
   private CustomImageState image;
   private ImageDatabaseInterface histogramDatabase;
 
@@ -27,8 +27,8 @@ public class MakeHistogram {
    * 2. Iterate through the image and increment the count of each color channel.
    * 3. Create a new image with the histogram.
    */
-  // @Override
-  public CustomImageState applyOperation() {
+  @Override
+  public void runAnalysis() {
     int[] redHistogram = new int[256];
     int[] greenHistogram = new int[256];
     int[] blueHistogram = new int[256];
@@ -49,6 +49,6 @@ public class MakeHistogram {
         intensityHistogram[intensity] += 1;
       }
     }
-    return null;
+//    return null;
   }
 }

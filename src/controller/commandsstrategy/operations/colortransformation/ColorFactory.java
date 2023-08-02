@@ -1,14 +1,15 @@
-package controller.commandsstrategy.filter;
+package controller.commandsstrategy.operations.colortransformation;
 
 import model.ImageDatabaseInterface;
 import model.operations.OperationInterface;
-import model.operations.filters.BlurFilter;
-import model.operations.filters.SharpenFilter;
+import model.operations.color.GreyscaleColor;
+import model.operations.color.SepiaColor;
 
 /**
- * This class is a factory for creating filters.
+ * This class is a factory for creating color filters.
+ * It implements the Factory design pattern.
  */
-public class FilterFactory {
+public class ColorFactory {
 
   /**
    * This method produces a filter based on the operation.
@@ -21,13 +22,15 @@ public class FilterFactory {
    */
   public static OperationInterface createFilter(String operation, String sourceImageID,
                                                 ImageDatabaseInterface imageDatabase) {
-    if (operation.equalsIgnoreCase("blur")) {
-      return new BlurFilter(imageDatabase.getImage(sourceImageID));
-    } else if (operation.equalsIgnoreCase("sharpen")) {
-      return new SharpenFilter(imageDatabase.getImage(sourceImageID));
+
+    if (operation.equalsIgnoreCase("sepia")) {
+      return new SepiaColor(imageDatabase.getImage(sourceImageID));
+    } else if (operation.equalsIgnoreCase("greyscale")) {
+      return new GreyscaleColor(imageDatabase.getImage(sourceImageID));
     } else {
       throw new IllegalArgumentException("Invalid operation. "
-              + "Must be one of: blur or sharpen");
+              + "Must be one of: sepia or greyscale");
     }
   }
+
 }

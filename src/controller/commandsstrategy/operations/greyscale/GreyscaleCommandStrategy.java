@@ -1,4 +1,4 @@
-package controller.commandsstrategy.greyscale;
+package controller.commandsstrategy.operations.greyscale;
 
 import controller.commandsstrategy.CommandStrategyInterface;
 import model.ImageDatabaseInterface;
