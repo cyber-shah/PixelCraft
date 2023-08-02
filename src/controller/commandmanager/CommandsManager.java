@@ -7,6 +7,7 @@ import controller.commandsstrategy.io.SaveCommandStrategy;
 import controller.commandsstrategy.operations.colortransformation.ColorCommandStrategy;
 import controller.commandsstrategy.operations.filter.FilterCommandStrategy;
 import controller.commandsstrategy.operations.greyscale.GreyscaleCommandStrategy;
+import model.analysis.MakeHistogram;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,7 +54,7 @@ public class CommandsManager implements CommandsManagerInterface {
     // COLOR TRANSFORMATIONS --------------------------------------
     commandsMap.put("COLOR", new ColorCommandStrategy());
     // ANALYSIS ---------------------------------------------------
-    commandsMap.put("ANALYSIS", new AnalysisCommandStrategy());
+    commandsMap.put("HISTOGRAM", new MakeHistogram());
   }
 
   /**
