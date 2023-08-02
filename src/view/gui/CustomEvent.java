@@ -14,7 +14,7 @@ public class CustomEvent extends java.util.EventObject {
   private final String filePath;
   private final String sourceID;
   private final String destID;
-
+  private final boolean getHistogram;
 
   /**
    * Constructor for the custom event.
@@ -27,13 +27,14 @@ public class CustomEvent extends java.util.EventObject {
    * @param destID the destination ID.
    */
   public CustomEvent(Object source, String eventType, String eventName,
-                     String filePath, String sourceID, String destID) {
+                     String filePath, String sourceID, String destID, boolean getHistogram) {
     super(source);
     this.eventType = eventType;
     this.eventName = eventName;
     this.filePath = filePath;
     this.sourceID = sourceID;
     this.destID = destID;
+    this.getHistogram = getHistogram;
   }
 
   /**
@@ -69,6 +70,15 @@ public class CustomEvent extends java.util.EventObject {
    */
   public String getEventType() {
     return eventType;
+  }
+
+  /**
+   * Getter for the histogram.
+   *
+   * @return true if histogram is to be generated, false otherwise.
+   */
+  public boolean getHistogram() {
+    return getHistogram;
   }
 
 

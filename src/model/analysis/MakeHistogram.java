@@ -1,4 +1,4 @@
-package model.operations;
+package model.analysis;
 
 import model.ImageDatabaseInterface;
 import model.image.CustomImageState;
@@ -7,7 +7,8 @@ import model.image.CustomImageState;
  * This class represents the operation to make a histogram of an image.
  * It implements the OperationInterface.
  */
-public class MakeHistogram implements OperationInterface {
+// TODO : implement the AnalysisInterface.
+public class MakeHistogram {
   private CustomImageState image;
   private ImageDatabaseInterface histogramDatabase;
 
@@ -26,9 +27,28 @@ public class MakeHistogram implements OperationInterface {
    * 2. Iterate through the image and increment the count of each color channel.
    * 3. Create a new image with the histogram.
    */
-  @Override
+  // @Override
   public CustomImageState applyOperation() {
-    CustomImageState histogram = new CustomImageState ();
-    histogramDatabase.addImage(histogram);
+    int[] redHistogram = new int[256];
+    int[] greenHistogram = new int[256];
+    int[] blueHistogram = new int[256];
+    int[] intensityHistogram = new int[256];
+
+    int width = image.getWidth();
+    int height = image.getHeight();
+
+    for (int i = 0; i < width; i++) {
+      for (int j = 0; j < height; j ++) {
+        int red = image.getPixel(i, j).getRed();
+        int green = image.getPixel(i, j).getGreen();
+        int blue = image.getPixel(i, j).getBlue();
+        int intensity = (red + green + blue) / 3;
+        redHistogram[red] += 1;
+        greenHistogram[green] += 1;
+        blueHistogram[blue] += 1;
+        intensityHistogram[intensity] += 1;
+      }
+    }
+    return null;
   }
 }

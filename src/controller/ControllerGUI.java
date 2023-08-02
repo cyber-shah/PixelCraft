@@ -6,12 +6,12 @@ import controller.commandsstrategy.CommandStrategyInterface;
 import model.ImageDatabase;
 import model.ImageDatabaseInterface;
 import model.image.CustomImageState;
-import model.operations.MakeHistogram;
 import view.gui.CustomEvent;
 import view.gui.GUIView;
 
 import java.util.Objects;
 import java.util.Stack;
+import java.util.UUID;
 
 /**
  * This class is the controller for the GUI.
@@ -98,45 +98,48 @@ public class ControllerGUI implements ControllerGUIInterface {
       }
     }
 
-
-
-    if (event.getHistogram) {
-      /**
-       * histograms can also be created with scripting
-       * <histogram> <source-image-ID> <histogram-dest-ID>
-       *   so it will take in 2 params.
-       *   1. source image ID from image database.
-       *   2. new histogram ID for histogram database.
-       *   ------------------------------------
-       *   Therefore, there would be two parallel databases.
-       *   1. image database
-       *   2. histogram database
-       *   ------------------------------------
-       */
-
-
+    /**
+     * histograms can also be created with scripting
+     * <histogram> <source-image-ID> <histogram-dest-ID>
+     *   so it will take in 2 params.
+     *   1. source image ID from image database.
+     *   2. new histogram ID for histogram database.
+     *   ------------------------------------
+     *   Therefore, there would be two parallel databases.
+     *   1. image database
+     *   2. histogram database
+     *   ------------------------------------
+     */
+    if (event.getHistogram()) {
 
       String[] histogramCommand = new String[3];
       histogramCommand[0] = "histogram";
       histogramCommand[1] = event.getDestID();
-      histogramCommand[2] = ;
+      histogramCommand[2] = UUID.randomUUID().toString();
+      try {
+        // get the command strategy object from the commands manager
+        CommandStrategyInterface commandStrategyObject =
+                commandsManager.getCommandStrategy(histogramCommand);
+        // run the command
+        commandStrategyObject.run(histogramCommand, this.imageDatabase);
 
-      // get the command strategy object from the commands manager
-      CommandStrategyInterface commandStrategyObject =
-              commandsManager.getCommandStrategy(histogramCommand);
-      // run the command
-      commandStrategyObject.run(histogramCommand, this.imageDatabase);
+        // get the histogram
+        CustomImageState histogram = this.histogramDatabase.getImage(histogramCommand[2]);
+
+        // update it in the view
+        view.updateHistogram(histogram);
+      }
+      catch (Exception e) {
+        view.showMessage(e.getMessage());
+      }
     }
-
-
-
-
-
 
 
     // show the message
     view.showMessage(event.getEventType() + " "
             + event.getEventName() + " " + "executed successfully");
 
+    // update the view
+    view.updateImageCanvas(updatedImage);
   }
 }
